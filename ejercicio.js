@@ -41,17 +41,25 @@ console.log(articuloPorTipo(articulos, "Electrónica", 99));
 todas las descripciones comiencen con mayúsculas y el resto de las letras estén en minúsculas. La función debe devolver el array modificado.*/
 
 function ajusteDescripcion(articulos) {
-  let arrayModificado = []; 
-  //terminar
+  // Uso map para recorrer el array y modificar la primera letra de la descripción a mayúscula y luego vuelvo a coger la cadena y la sumo en minuscula pero quitando el primer valor (primera letra)
+  let arrayModificado = articulos.map((elemento)=>elemento.descripcion.toUpperCase().charAt(0) + elemento.descripcion.toLowerCase().slice(1) );
   return arrayModificado;
 }
 
 console.log("Ejercicio 2:");
-console.log();
+console.log(ajusteDescripcion(articulos));
 
 /*(3) Escribe una función que reciba como parámetro el array de artículos y una cadena. La función debe devolver un array con los artículos 
 que tienen esa cadena en la descripción. */
 
+function filtrarPorDescripcion(articulos, cadena) {
+
+  let arrayModificado = articulos.filter((elemento)=>elemento.descripcion.includes(cadena) );
+  return arrayModificado;
+}
+
+console.log("Ejercicio 3:");
+console.log(filtrarPorDescripcion(articulos,"herramientas"));
 
 /*(4) Escribe una función que recibe como parámetro el array y un tipo de artículo, y devuelve un objeto con dos atributos; cantidad y preciomedio. 
 que contendrán la cantidad y el precio medio de los artículos de ese tipo.
@@ -59,7 +67,17 @@ que contendrán la cantidad y el precio medio de los artículos de ese tipo.
 Ejemplo de parámetro: "Electrónica"
 Ejemplo de salida: { "cantidad": 8, "preciomedio": 113.74 }*/
 
+function comprobacionPorTipo(articulos, tipo) {
 
+  let arrayTipos = articulos.filter((elemento)=>elemento.tipo === tipo );
+  let precios = 0;
+  arrayTipos.map((elemento)=>elemento.precio + precios);
+//devuelve los 8 objetos [TERMINAR]
+  return arrayTipos;
+}
+
+console.log("Ejercicio 4:");
+console.log(comprobacionPorTipo(articulos,"Electrónica"));
 
 
 /*(5) Escribe una función que reorganice el array de artículos según el precio, en orden ascendente o descendente (según un parámetro de entrada).*/
