@@ -37,36 +37,56 @@ class banco {
         if (!(codCuenta in this.cuentas)) {
             return console.log("Error: La cuenta no existe");
         }
-        this.cuentas[codCuenta] =  this.cuentas[codCuenta] + modificacionSaldo;
+        this.cuentas[codCuenta] = this.cuentas[codCuenta] + modificacionSaldo;
     }
-}
 
-let miBanco = new banco("Banco regional");
-//valido con saldo 0
-miBanco.crearCuenta("000123");
-//saldo inicial pero codigo fuera de rango
-miBanco.crearCuenta("600000", 200);
-//valido con saldo inicial
-miBanco.crearCuenta("599999", 1500);
-//añadiendo ceros al codigo
-miBanco.crearCuenta("45", 500);
+    /*(9) Eliminar cuenta: Recibe como parámetro el código de cuenta y la elimina.Mostrará error si la cuenta no existe o si no tiene saldo 0, indicando cada caso. */
+    eliminarCuenta(codCuenta) {
+        if (!(codCuenta in this.cuentas)) {
+            return console.log("Error: La cuenta no existe");
+        }
+        if (this.cuentas[codCuenta] != 0) {
+            return console.log("Error: La cuenta tiene saldo");
+        }
 
-console.log("Ejercicios 6-7", miBanco.cuentas);
-
-//añado ingreso
-miBanco.actualizarCuenta("000123", 700);
-//quito saldo
-miBanco.actualizarCuenta("599999", -200);
-//codigo no existente
-miBanco.actualizarCuenta("123456", 200);
-
-console.log("Ejercicio 8", miBanco.cuentas);
-
-
-
-/*(9) Eliminar cuenta: Recibe como parámetro el código de cuenta y la elimina.Mostrará error si la cuenta no existe o si no tiene saldo 0, indicando cada caso. */
-
-
+        delete this.cuentas[codCuenta];
+    }
 
 /*(10) Listar cuentas: Escribe en el documento el nombre del banco y la lista de cuentas con sus saldos de forma similar a la mostrada en la imagen siguiente.
     Realiza 3 llamadas al método para crear cuentas, y una llamada a cada uno de los otros métodos para demostrar su funcionamiento..*/
+    listarCuentas() {
+         document.write("<h2>" + this.nombre + "</h2>");
+         document.write("<ul>");
+         for (let i in this.cuentas) {
+             document.write("<li>Cuenta: " + i + " - Saldo: " + this.cuentas[i] + "€</li>");
+         }
+         document.write("</ul>");
+    }
+
+
+}
+
+let miBanco = new banco("Banco regional");
+
+miBanco.crearCuenta("000123"); //valido con saldo 0
+miBanco.crearCuenta("600000", 200); //saldo inicial pero codigo fuera de rango
+miBanco.crearCuenta("599999", 1500); //valido con saldo inicial
+miBanco.crearCuenta("45", 500); //añadiendo ceros al codigo
+
+
+console.log("Ejercicios 6-7", miBanco.cuentas);
+
+miBanco.actualizarCuenta("000123", 700); //añado ingreso
+miBanco.actualizarCuenta("599999", -1500); //quito saldo
+miBanco.actualizarCuenta("123456", 200); //codigo no existente
+
+console.log("Ejercicio 8", miBanco.cuentas);
+
+miBanco.eliminarCuenta("000123"); //tiene saldo
+miBanco.eliminarCuenta("123456"); //no existe
+miBanco.eliminarCuenta("599999"); //se elimina correctamente
+
+console.log("Ejercicio 9", miBanco.cuentas);
+
+miBanco.listarCuentas(miBanco.nombre);
+
